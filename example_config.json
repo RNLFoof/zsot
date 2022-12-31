@@ -1,0 +1,17 @@
+{
+  "images": {
+    "desktop": {
+      "width": 2560,
+      "height": 1440
+    },
+    "home": {
+      "width": 1080,
+      "height": 2240
+    },
+    "lock": {
+      "width": 1080,
+      "height": 2240,
+      "darken": true
+    }
+  }
+}
