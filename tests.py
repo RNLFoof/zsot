@@ -68,7 +68,18 @@ class TestNestedValueMethods(unittest.TestCase):
 
 
 class TestConfig(unittest.TestCase):
-    def test_schema_validation(self):
+    def test_example(self):
+        with open("config_schema.json", "rb") as f:
+            schema = json.load(f)
+        with open("example_config.json", "rb") as f:
+            example = json.load(f)
+
+        try:
+            jsonschema.validate(example, schema)
+        except jsonschema.exceptions.ValidationError:
+            self.fail(f"Example doesn't pass validation!")
+
+    def test_schema_invalids(self):
         # Load
         with open("config_schema.json", "rb") as f:
             schema = json.load(f)
