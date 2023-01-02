@@ -88,9 +88,11 @@ class TestConfig(unittest.TestCase):
 
         # Iterate
         for n, (path, invalid_value, valid_value) in enumerate([
+            (["image_directory"], "", "C:/images"),
+            (["image_directory"], 1, "C:/images"),
             (["images"], {}, {"desktop": {"width": 2560, "height": 1440}}),
             (["images"], {"desktop": {"width": 2560, "height": 1440, "burp": 1}},
-             {"desktop": {"width": 2560, "height": 1440}}),
+                {"desktop": {"width": 2560, "height": 1440}}),
             (["images", "desktop"], {"width": 2560}, {"width": 2560, "height": 1440}),
             (["images", "desktop"], {}, {"width": 2560, "height": 1440}),
             (["images", "desktop"], {"width": 2560, "height": 1440, "burp": 1}, {"width": 2560, "height": 1440}),
