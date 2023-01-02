@@ -1,7 +1,7 @@
 import copy
 import json
 import unittest
-from typing import Union, Iterable, Any, Hashable
+from typing import Union, Any, Hashable
 
 import jsonschema
 
@@ -98,6 +98,10 @@ class TestConfig(unittest.TestCase):
             (["images", "desktop", "height"], -1, 1),
             (["images", "desktop", "width"], 1.1, 1),
             (["images", "desktop", "height"], 1.1, 1),
+            (["operations"], [], [{"type": "command", "command": "RGBFusionTool -c {colors0}"}]),
+            (["operations"], {"type": "command", "command": "RGBFusionTool -c {colors0}", "burp": 1},
+                [{"type": "command", "command": "RGBFusionTool -c {colors0}"}]),
+            (["operations", 0, "type"], "hey", "command"),
         ]):
             # Use a copy so that later tests work too
             base_copy = copy.deepcopy(base)

@@ -13,5 +13,15 @@
       "height": 2240,
       "darken": true
     }
-  }
+  },
+  "operations": [
+    {
+      "type": "command",
+      "command": "RGBFusionTool -c {colors0}"
+    },
+    {
+      "type": "command",
+      "command": "windows10colorcontrol -dwm_color {colors0} -accent_color {colors1}"
+    }
+  ]
 }
