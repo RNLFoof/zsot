@@ -1,16 +1,40 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+import json
+import os.path
+from argparse import ArgumentParser
 
 
-# Press the green button in the gutter to run the script.
+def load_settings(parser: ArgumentParser, config_path: str) -> dict:
+    if os.path.isdir(config_path):
+        load_me = None
+        for file in os.listdir(config_path):
+            if "config" not in file.lower() or not file.lower().endswith(".json"):
+                continue
+            if load_me is not None:
+                parser.error("Multiple config guesses found in this directory!"
+                             "\nPlease specify the full path to a config file, "
+                             r"or only have one .*config.*\.json$ in the directory.")
+            load_me = os.path.join(config_path, file)
+    else:
+        load_me = config_path
+    with open(load_me, 'rb') as f:
+        return json.load(f)
+
+
+def generate_parser() -> ArgumentParser:
+    parser = ArgumentParser()
+    parser.add_argument('-c', '--config', help='Use configuration file CONFIG',
+                            type=str, default=".")
+
+
+    return parser
+
+
+def main():
+    parser = generate_parser()
+    args = parser.parse_args()
+    load_settings(parser, args.config)
+    if 'func' in args:
+        args.func(args)
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()
